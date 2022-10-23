@@ -5,7 +5,7 @@ void hello_cp(){
     printf("Hello Computacao Paralela!!!\n");
 }
 
-void centroid(double *A,double *B,int *C,int K,int N,double *R1,double *R2){
+void centroid(float *A,float *B,int *C,int K,int N,float *R1,float *R2){
 	int kn[K];
 	for(int i = 0; i < K; i++) {
 		kn[i] = 0;
@@ -24,7 +24,7 @@ void centroid(double *A,double *B,int *C,int K,int N,double *R1,double *R2){
 	
 }
 
-int normalize(double *A,double *B,int *C,int K,int N,double *R1,double *R2){
+int normalize(float *A,float *B,int *C,int K,int N,float *R1,float *R2){
 	int ret = 0;	
 	for(int i = 0; i < N; i++) {
 		float maxD=10;

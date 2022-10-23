@@ -4,31 +4,33 @@
 #include<stdlib.h>
 
 #define K 4
-#define N 1000
+#define N 10000000
 
 #ifndef size
 #define size 512
 #endif
 
-double *X_Coords, *Y_Coords;
-double *Xn,*Yn;
+float *X_Coords, *Y_Coords;
+float *Xn,*Yn;
 int *Nucleos;
 
 void alloc() {
-	X_Coords = malloc(N*sizeof(double));
-	Y_Coords = malloc(N*sizeof(double));
+	X_Coords = malloc(N*sizeof(float));
+	Y_Coords = malloc(N*sizeof(float));
 	Nucleos = malloc(N*sizeof(int));
-	Xn = malloc(K*sizeof(double));
-	Yn = malloc(K*sizeof(double));
+	Xn = malloc(K*sizeof(float));
+	Yn = malloc(K*sizeof(float));
 }
 
 void init() {
     	srand(10);
 	for(int i=0; i<N;i++) {
-		Nucleos[i] = (int) rand() % 4;
 		X_Coords[i] = (float) rand() / RAND_MAX; 
 		Y_Coords[i] = (float) rand() / RAND_MAX;
-    }
+    	}
+	for(int i=0; i<N;i++) {
+		Nucleos[i] = (int) rand() % 4;
+	}
 }
 /*
 void mmult() {
@@ -46,18 +48,20 @@ int main() {
     alloc();
     init();
     int j=0;
-    for(int i = 0;i<N;i++) {
+    /*for(int i = 0;i<N;i++) {
     	printf("%f,%f,%d\n",X_Coords[i],Y_Coords[i],Nucleos[i]);
-    }
+    }*/
    do { 
     centroid(X_Coords,Y_Coords,Nucleos,K,N,Xn,Yn);
-    for(int i=0;i<K;i++){
+    /*for(int i=0;i<K;i++){
 	printf("%f,%f\n",Xn[i],Yn[i]);
-    }
+    }*/
     j++;
    } while (normalize(X_Coords,Y_Coords,Nucleos,K,N,Xn,Yn));
-    for(int i = 0;i<N;i++) {
+    for(int i=0;i<K;i++){
+	printf("%f,%f\n",Xn[i],Yn[i]);
+    }/*for(int i = 0;i<N;i++) {
     	printf("%f,%f,%d\n",X_Coords[i],Y_Coords[i],Nucleos[i]);
-    }
+    }*/
     printf("%d iterações!\n", j);
 }
