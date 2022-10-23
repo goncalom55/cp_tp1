@@ -27,9 +27,11 @@ void init() {
 	for(int i=0; i<N;i++) {
 		X_Coords[i] = (float) rand() / RAND_MAX; 
 		Y_Coords[i] = (float) rand() / RAND_MAX;
+		Nucleos[i] = 0;
     	}
-	for(int i=0; i<N;i++) {
-		Nucleos[i] = (int) rand() % 4;
+	for(int i=0; i<K;i++) {
+		Xn[i] = X_Coords[i];
+		Yn[i] = Y_Coords[i];
 	}
 }
 /*
@@ -45,23 +47,20 @@ void mmult() {
 }
 */
 int main() {
-    alloc();
-    init();
-    int j=0;
-    /*for(int i = 0;i<N;i++) {
-    	printf("%f,%f,%d\n",X_Coords[i],Y_Coords[i],Nucleos[i]);
-    }*/
-   do { 
+   alloc();
+   init();
+   int j=0;
+   while (normalize(X_Coords,Y_Coords,Nucleos,K,N,Xn,Yn)){ 
     centroid(X_Coords,Y_Coords,Nucleos,K,N,Xn,Yn);
-    /*for(int i=0;i<K;i++){
-	printf("%f,%f\n",Xn[i],Yn[i]);
-    }*/
     j++;
-   } while (normalize(X_Coords,Y_Coords,Nucleos,K,N,Xn,Yn));
-    for(int i=0;i<K;i++){
-	printf("%f,%f\n",Xn[i],Yn[i]);
-    }/*for(int i = 0;i<N;i++) {
-    	printf("%f,%f,%d\n",X_Coords[i],Y_Coords[i],Nucleos[i]);
-    }*/
-    printf("%d iterações!\n", j);
+   }
+   int num[K];
+   for(int i=0;i<K;i++) num[i] = 0;
+   for(int i= 0;i<N;i++){
+ 	num[Nucleos[i]]+=1;
+   } 
+   for(int i=0;i<K;i++){
+	   printf("Center: (%.3f,%.3f) : Size : %d\n",Xn[i],Yn[i],num[i]);
+   }
+   printf("%d iterações!\n", j);
 }
