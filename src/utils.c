@@ -27,10 +27,13 @@ void centroid(float *A,float *B,int *C,int K,int N,float *R1,float *R2){
 int normalize(float *A,float *B,int *C,int K,int N,float *R1,float *R2){
 	int ret = 0;	
 	for(int i = 0; i < N; i++) {
-		float maxD=10;
-		int mem = C[i];	
+		float maxD=1000;
+
+		int mem = C[i];
+		float mem2 = A[i];
+		float mem3 = B[i];
 		for(int j = 0; j < K; j++) {
-			float D = sqrt(pow(A[i]-R1[j],2)+pow(B[i]-R2[j],2));
+			float D = pow(mem2-R1[j],2)+pow(mem3-R2[j],2);
 
 			if(maxD > D) {
 				C[i] = j;

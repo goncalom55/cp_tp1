@@ -34,23 +34,12 @@ void init() {
 		Yn[i] = Y_Coords[i];
 	}
 }
-/*
-void mmult() {
-    for(int i=0; i<size; i++) {
-        for(int j=0; j<size; j++) {
-            C[i*size+j] = 0;
-            for(int k=0; k<size; k++) {
-                C[i*size+j] += A[i*size+k] * B[k*size+j];
-            }
-        }
-    }
-}
-*/
+
 int main() {
    alloc();
    init();
    int j=0;
-   while (normalize(X_Coords,Y_Coords,Nucleos,K,N,Xn,Yn)){ 
+   while (normalize(X_Coords,Y_Coords,Nucleos,K,N,Xn,Yn)){
     centroid(X_Coords,Y_Coords,Nucleos,K,N,Xn,Yn);
     j++;
    }
