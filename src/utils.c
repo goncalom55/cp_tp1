@@ -20,21 +20,6 @@ void centroid(float *A,float *B,int *C,int K,int N,float *R1,float *R2){
 	
 }
 
-int min(float *R1, float *R2, int K, float X, float Y) {
-		
-       	float r = pow(X-R1[0],2)+pow(Y-R2[0],2);
-	int c = 0;
-
-	for (int i = 1; i < K; i++) {
-		float comp = pow(X-R1[i],2)+pow(Y-R2[i],2);	
-		if(r > comp) {
-			c = i;
-			r = comp;
-		}
-	}
-	return c;
-}
-
 int normalize(float *A,float *B,int *C,int K,int N,float *R1,float *R2){
 	int ret = 0;	
 	float quickX[K];
@@ -47,7 +32,17 @@ int normalize(float *A,float *B,int *C,int K,int N,float *R1,float *R2){
 		int mem = C[i];
 		float mem2 = A[i];
 		float mem3 = B[i];
-		C[i] = min(quickX,quickY,K,mem2,mem3);
+		float r = pow(mem2-quickX[0],2)+pow(mem3-quickY[0],2);
+		int c = 0;
+
+		for (int j = 1; j < K; j++) {
+			float comp = pow(mem2-quickX[j],2)+pow(mem3-quickY[j],2);	
+			if(r > comp) {
+				c = j;
+				r = comp;
+			}
+		}
+		C[i] = c;
 		if(C[i]!=mem)ret++;
 	}
 	return ret;
