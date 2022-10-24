@@ -1,10 +1,6 @@
 #include <stdio.h>
 #include <math.h>
 
-void hello_cp(){
-    printf("Hello Computacao Paralela!!!\n");
-}
-
 void centroid(float *A,float *B,int *C,int K,int N,float *R1,float *R2){
 	int kn[K];
 	for(int i = 0; i < K; i++) {
@@ -26,21 +22,26 @@ void centroid(float *A,float *B,int *C,int K,int N,float *R1,float *R2){
 
 int normalize(float *A,float *B,int *C,int K,int N,float *R1,float *R2){
 	int ret = 0;	
+	float quickX[4];
+	float quickY[4];
+	for(int i = 0; i < K; i++) {
+		quickX[i] = R1[i];
+		quickY[i] = R2[i];
+	}
 	for(int i = 0; i < N; i++) {
-		float maxD=1000;
-
 		int mem = C[i];
 		float mem2 = A[i];
 		float mem3 = B[i];
+		float maxD=10;
 		for(int j = 0; j < K; j++) {
-			float D = pow(mem2-R1[j],2)+pow(mem3-R2[j],2);
+			float D = pow(mem2-quickX[j],2)+pow(mem3-quickY[j],2);
 
 			if(maxD > D) {
 				C[i] = j;
 				maxD = D;
 			}
 		}
-		if(mem != C[i]) ret ++;
+		if(C[i]!=mem)ret++;
 	}
 	return ret;
 }
