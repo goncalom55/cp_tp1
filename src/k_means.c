@@ -10,13 +10,12 @@
 #define size 512
 #endif
 
-float *X_Coords, *Y_Coords;
+float *XY;
 float *Xn,*Yn;
 int *Nucleos;
 
 void alloc() {
-	X_Coords = malloc(N*sizeof(float));
-	Y_Coords = malloc(N*sizeof(float));
+	XY = malloc(2*N*sizeof(float));
 	Nucleos = malloc(N*sizeof(int));
 	Xn = malloc(K*sizeof(float));
 	Yn = malloc(K*sizeof(float));
@@ -24,14 +23,14 @@ void alloc() {
 
 void init() {
     	srand(10);
-	for(int i=0; i<N;i++) {
-		X_Coords[i] = (float) rand() / RAND_MAX; 
-		Y_Coords[i] = (float) rand() / RAND_MAX;
-		Nucleos[i] = 0;
+	for(int i=0,j=0; j<N;i++,j++) {
+		XY[i] = (float) rand() / RAND_MAX; 
+		XY[++i] = (float) rand() / RAND_MAX;
+		Nucleos[j] = 0;
     	}
-	for(int i=0; i<K;i++) {
-		Xn[i] = X_Coords[i];
-		Yn[i] = Y_Coords[i];
+	for(int i=0,j =0; j<K;i++) {
+		Xn[j] = XY[i];
+		Yn[j++] = XY[++i];
 	}
 }
 
@@ -39,8 +38,8 @@ int main() {
    alloc();
    init();
    int j=0;
-   while (normalize(X_Coords,Y_Coords,Nucleos,K,N,Xn,Yn)){
-    centroid(X_Coords,Y_Coords,Nucleos,K,N,Xn,Yn);
+   while (normalize(XY,Nucleos,K,N,Xn,Yn)){
+    centroid(XY,Nucleos,K,N,Xn,Yn);
     j++;
    }
    int num[K];

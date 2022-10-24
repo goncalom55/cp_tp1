@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <math.h>
 
-void centroid(float *A,float *B,int *C,int K,int N,float *R1,float *R2){
+void centroid(float *AB,int *C,int K,int N,float *R1,float *R2){
 	int kn[K];
 
 
@@ -11,10 +11,13 @@ void centroid(float *A,float *B,int *C,int K,int N,float *R1,float *R2){
 		R1[i] = 0;
 		R2[i] = 0;	
 	}
-	for(int i = 0; i<N; i++) {
-		kn[C[i]]++;
-		R1[C[i]]+=A[i];
-		R2[C[i]]+=B[i];
+	for(int i = 0,j=0;j<N,j++) {
+		kn[C[j]]++;
+		
+		R1[C[j]]+=AB[i++];
+		
+		R2[C[j]]+=AB[i++];
+		
 	}
 	for(int i =0; i<K; i++) {
 		R1[i] /= kn[i];
@@ -23,7 +26,7 @@ void centroid(float *A,float *B,int *C,int K,int N,float *R1,float *R2){
 	
 }
 
-int normalize(float *A,float *B,int *C,int K,int N,float *R1,float *R2){
+int normalize(float *AB,int *C,int K,int N,float *R1,float *R2){
 	int ret = 0;	
 	float quickX[K];
 	float quickY[K];
@@ -31,11 +34,11 @@ int normalize(float *A,float *B,int *C,int K,int N,float *R1,float *R2){
 		quickX[i] = R1[i];
 		quickY[i] = R2[i];
 	}
-	for(int i = 0; i < N; i++) {
-		int mem = C[i];
+	for(int i = 0,t=0; i < N; i++) {
 		int c = 0;
-		float mem2 = A[i];
-		float mem3 = B[i];
+		int mem = C[i];
+		float mem2 = AB[t++];
+		float mem3 = AB[t++];
 		float r = pow(mem2-quickX[0],2)+pow(mem3-quickY[0],2);
 
 		for (int j = 1; j < K; j++) {
