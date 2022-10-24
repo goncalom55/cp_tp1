@@ -33,7 +33,7 @@ int normalize(float *A,float *B,int *C,int K,int N,float *R1,float *R2){
 	}
 	for(int i = 0; i < N; i++) {
 		int mem = C[i];
-		int c = mem;
+		int c = 0;
 		float mem2 = A[i];
 		float mem3 = B[i];
 		float r = pow(mem2-quickX[0],2)+pow(mem3-quickY[0],2);
