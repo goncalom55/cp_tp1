@@ -4,7 +4,7 @@ SRC = src/
 INCLUDES = include/
 EXEC = k_means
 
-CFLAGS = -fno-omit-frame-pointer -O2
+CFLAGS = -O2
 
 .DEFAULT_GOAL = k_means
 
