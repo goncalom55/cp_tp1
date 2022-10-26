@@ -58,7 +58,7 @@ int normalize(Ponto *pontos, Nucleo *nucleos, int K, int N){
 		nucleos_locais[i+1] = nucleos[i+1];
 	}
 
-	for(int i = 0; i < N && !retorno; i+=2) {
+	for(int i = 0; i < N; i+=2) {
 		Ponto ponto_local1 = pontos[i];
 		Ponto ponto_local2 = pontos[i+1];
 		
@@ -69,9 +69,11 @@ int normalize(Ponto *pontos, Nucleo *nucleos, int K, int N){
 			distancias2[j] = pow(ponto_local2.x - nucleos_locais[j].x,2) + pow(ponto_local2.y - nucleos_locais[j].y,2);
 			distancias2[j+1] = pow(ponto_local2.x - nucleos_locais[j+1].x,2) + pow(ponto_local2.y - nucleos_locais[j+1].y,2);
 		}
+		
 
 		retorno += minima_dist(&pontos[i], distancias1, K) + minima_dist(&pontos[i+1], distancias2, K);
 	}
+
 	
 	return retorno;
 }
